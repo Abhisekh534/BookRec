@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book Recommender System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        body{ background: linear-gradient(180deg,#07121a,#0b2430); color:#fff }
+        .nav-custom{ background:#0ea66a }
+        .brand{ color:#fff; font-weight:700 }
+        .page-title{ font-size:36px; margin:18px 0 }
+        .search-box{ max-width:520px }
+        .result-card{ background: rgba(255,255,255,0.03); padding:14px; border-radius:8px; text-align:center }
+        .result-card img{ max-width:140px; height:200px; object-fit:cover; margin-bottom:8px }
+        .book-name{ font-weight:600 }
+        @media (max-width:768px){ .result-card img{ height:160px } }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar nav-custom">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand brand">My Book Recommender</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="/recommend">Recommend</a></li>
+                <li><a>Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="page-title">Recommend Books</h1>
+                <form action="/recommend_books" method="post" class="search-box">
+                    <div class="input-group">
+                        <input name="user_input" type="text" class="form-control" placeholder="Type a book name...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning" type="submit">Search</button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+
+            {% if data %}
+             {% for i in data %}
+                <div class="col-sm-6 col-md-3" style="margin-top:24px">
+                    <div class="result-card">
+                        <img src="{{i[2]}}" alt="{{i[0]}}">
+                        <div class="book-name">{{i[0]}}</div>
+                        <div class="book-author">{{i[1]}}</div>
+                    </div>
+                </div>
+             {% endfor %}
+            {% endif %}
+
+        </div>
+    </div>
+
+</body>
+</html>
